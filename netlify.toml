@@ -1,0 +1,31 @@
+# ─────────────────────────────────────────────────────────────
+#  FutureTrack — Netlify deployment configuration
+# ─────────────────────────────────────────────────────────────
+#  This project uses Server Actions, Middleware, and Route
+#  Handlers (App Router), so it MUST be deployed using the
+#  official Next.js Runtime plugin below — a plain static export
+#  will NOT work since auth/middleware require a server runtime.
+# ─────────────────────────────────────────────────────────────
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Required: enables SSR, Server Actions, Middleware, and Route
+# Handlers on Netlify. Without this plugin the app will deploy
+# as a broken static site and /login, /dashboard, and all API
+# routes will fail.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Security headers (optional but recommended)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
