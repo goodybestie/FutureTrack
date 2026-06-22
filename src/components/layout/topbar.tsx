@@ -11,12 +11,13 @@ interface TopbarProps {
   title?: string;
   subtitle?: string;
   onMenuToggle?: () => void;
-  isDark?: boolean;
+  // isDark?: boolean;
+  isMoon?: boolean;
   onThemeToggle?: () => void;
 }
 
 
-export function Topbar({ title, subtitle, onMenuToggle, isDark, onThemeToggle }: TopbarProps) {
+export function Topbar({ title, subtitle, onMenuToggle,  isMoon,  onThemeToggle }: TopbarProps) {
   const { profile, signOut } = useAuthContext();
   
   const displayName = profile?.full_name ?? "User";
@@ -45,7 +46,7 @@ export function Topbar({ title, subtitle, onMenuToggle, isDark, onThemeToggle }:
         </div>
 
         <Button variant="ghost" size="icon" onClick={onThemeToggle}>
-          {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          {isMoon ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
         </Button>
 
         {/* Notifications */}
